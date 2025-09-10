@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python Snakes & Ladders: An Infographic</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-twilight.min.css" rel="stylesheet" />
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 400px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 350px;
+            }
+        }
+        .flow-box {
+            background-color: #F7FAFC;
+            border: 2px solid #E2E8F0;
+            border-radius: 0.5rem;
+            padding: 1rem;
+            text-align: center;
+            font-weight: 600;
+            color: #073B4C;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+        .flow-arrow {
+            font-size: 2rem;
+            color: #118AB2;
+            align-self: center;
+            margin: 0.5rem;
+        }
+        .code-block {
+            position: relative;
+            background-color: #073B4C;
+            padding: 1rem;
+            border-radius: 0.5rem;
+        }
+        .code-block code {
+            font-family: monospace;
+            white-space: pre-wrap;
+            font-size: 0.875rem;
+            display: block;
+        }
+        .copy-button {
+            position: absolute;
+            top: 0.5rem;
+            right: 0.5rem;
+            background-color: #118AB2;
+            color: white;
+            padding: 0.25rem 0.5rem;
+            border-radius: 0.25rem;
+            font-size: 0.75rem;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body style="background-color: #073B4C;">
+
+    <div class="container mx-auto p-4 md:p-8">
+        <header class="text-center text-white mb-12">
+            <h1 class="text-4xl md:text-6xl font-black mb-2" style="color: #FFD166;">Deconstructing Snakes & Ladders</h1>
+            <p class="text-lg md:text-xl font-light" style="color: #FFFFFF;">An interactive look at building the classic board game with Python.</p>
+        </header>
+
+        <main class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+            <div class="lg:col-span-3 bg-white rounded-lg shadow-2xl p-6 flex flex-col md:flex-row items-center justify-around">
+                <div class="text-center p-4">
+                    <p class="text-2xl font-semibold" style="color: #073B4C;">The Goal</p>
+                    <p class="text-8xl font-black" style="color: #118AB2;">100</p>
+                    <p class="text-xl font-semibold" style="color: #073B4C;">Reach the Final Square</p>
+                </div>
+                <div class="text-center p-4">
+                    <p class="text-2xl font-semibold" style="color: #073B4C;">Core Logic</p>
+                    <p class="text-8xl font-black" style="color: #06D6A0;">3</p>
+                    <p class="text-xl font-semibold" style="color: #073B4C;">Key Python Functions</p>
+                </div>
+                <div class="text-center p-4">
+                    <p class="text-2xl font-semibold" style="color: #073B4C;">Key Data Structure</p>
+                    <p class="text-6xl md:text-8xl font-black" style="color: #FF6B6B;">{ }</p>
+                    <p class="text-xl font-semibold" style="color: #073B4C;">Python Dictionaries</p>
+                </div>
+            </div>
+
+            <div class="md:col-span-2 lg:col-span-1 bg-white rounded-lg shadow-2xl p-6">
+                <h2 class="text-2xl font-bold text-center mb-4" style="color: #073B4C;">On-Board Events</h2>
+                <p class="text-center text-gray-600 mb-4">The game board features a mix of helpful ladders and hazardous snakes that alter a player's journey. This chart shows the composition of these key interactive elements.</p>
+                <div class="chart-container">
+                    <canvas id="boardEventsChart"></canvas>
+                </div>
+            </div>
+
+            <div class="md:col-span-2 bg-white rounded-lg shadow-2xl p-6">
+                <h2 class="text-2xl font-bold text-center mb-4" style="color: #073B4C;">The Blueprint: Board Setup</h2>
+                <p class="text-center text-gray-600 mb-6">The entire board's logic for snakes and ladders is elegantly defined using two Python dictionaries. The dictionary `key` represents the starting square, and the `value` is the destination, making the logic for player transport simple and direct.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <h3 class="text-xl font-bold mb-2 text-center" style="color: #FF6B6B;">Snakes 🐍</h3>
+                        <pre class="code-block"><code class="language-python">snakes = {
+    16: 6,
+    47: 26,
+    49: 11,
+    56: 53,
+    62: 19,
+    ...
+}</code></pre>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-bold mb-2 text-center" style="color: #06D6A0;">Ladders 🪜</h3>
+                        <pre class="code-block"><code class="language-python">ladders = {
+    1: 38,
+    4: 14,
+    9: 31,
+    21: 42,
+    28: 84,
+    ...
+}</code></pre>
+                    </div>
+                </div>
+            </div>
+
+            <div class="lg:col-span-3 bg-white rounded-lg shadow-2xl p-6">
+                <h2 class="text-2xl font-bold text-center mb-4" style="color: #073B4C;">The Engine: Player Movement Logic</h2>
+                <p class="text-center text-gray-600 mb-6">The `move_player` function is the heart of the game's logic. It's a clear sequence of operations that determines a player's final position after every dice roll, handling all of the game's core rules in a single, organized process.</p>
+                <div class="flex flex-col md:flex-row justify-center items-center">
+                    <div class="flow-box">Calculate New Position<br><small>(Current + Dice Roll)</small></div>
+                    <div class="flow-arrow hidden md:block">→</div>
+                    <div class="flow-arrow block md:hidden">↓</div>
+                    <div class="flow-box">Is Position > 100? <br><small>(Yes? Bounce Back!)</small></div>
+                    <div class="flow-arrow hidden md:block">→</div>
+                    <div class="flow-arrow block md:hidden">↓</div>
+                    <div class="flow-box">On a Snake Head or<br>Ladder Base?</div>
+                    <div class="flow-arrow hidden md:block">→</div>
+                    <div class="flow-arrow block md:hidden">↓</div>
+                    <div class="flow-box" style="background-color: #06D6A0; color: white;">Final Position</div>
+                </div>
+            </div>
+            
+            <div class="lg:col-span-3 bg-white rounded-lg shadow-2xl p-6">
+                <h2 class="text-2xl font-bold text-center mb-4" style="color: #073B4C;">Bringing it to Life: The Game Loop</h2>
+                <p class="text-center text-gray-600 mb-6">A `while` loop keeps the game running. It continuously prompts the player for their turn, processes their move, and checks if they've won. This simple loop structure is the engine that drives the entire gameplay experience from start to finish.</p>
+                <div class="flex flex-col md:flex-row justify-center items-center flex-wrap">
+                    <div class="flow-box">Start Game Loop</div>
+                    <div class="flow-arrow hidden md:block">→</div>
+                    <div class="flow-arrow block md:hidden">↓</div>
+                    <div class="flow-box">Prompt Player to Roll</div>
+                    <div class="flow-arrow hidden md:block">→</div>
+                    <div class="flow-arrow block md:hidden">↓</div>
+                    <div class="flow-box">Roll Dice & Move Player</div>
+                    <div class="flow-arrow hidden md:block">→</div>
+                    <div class="flow-arrow block md:hidden">↓</div>
+                    <div class="flow-box">Update & Display Position</div>
+                    <div class="flow-arrow hidden md:block">→</div>
+                    <div class="flow-arrow block md:hidden">↓</div>
+                     <div class="flow-box">Reached 100?</div>
+                     <div class="flow-arrow hidden md:block">→</div>
+                    <div class="flow-arrow block md:hidden">↓</div>
+                    <div class="flow-box" style="background-color: #FFD166; color: #073B4C;">Winner! (End Loop)</div>
+                </div>
+            </div>
+
+            <div class="lg:col-span-3 bg-white rounded-lg shadow-2xl p-6">
+                <h2 class="text-2xl font-bold text-center mb-6" style="color: #073B4C;">How to Play</h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="text-center p-4 border-2 border-gray-200 rounded-lg">
+                        <p class="text-6xl mb-2">1️⃣</p>
+                        <h3 class="text-xl font-bold mb-2" style="color: #118AB2;">Run the Script</h3>
+                        <p class="text-gray-600">Execute the Python file from your command line to launch the game.</p>
+                    </div>
+                    <div class="text-center p-4 border-2 border-gray-200 rounded-lg">
+                        <p class="text-6xl mb-2">2️⃣</p>
+                        <h3 class="text-xl font-bold mb-2" style="color: #118AB2;">Roll the Dice</h3>
+                        <p class="text-gray-600">Follow the prompts to roll the virtual dice and advance your player token.</p>
+                    </div>
+                    <div class="text-center p-4 border-2 border-gray-200 rounded-lg">
+                        <p class="text-6xl mb-2">3️⃣</p>
+                        <h3 class="text-xl font-bold mb-2" style="color: #118AB2;">Journey to 100</h3>
+                        <p class="text-gray-600">Navigate obstacles and boosts to be the first to reach the final square and win!</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="lg:col-span-3 bg-white rounded-lg shadow-2xl p-6">
+                <h2 class="text-2xl font-bold text-center mb-6" style="color: #073B4C;">The Complete Python Script</h2>
+                <p class="text-center text-gray-600 mb-6">Here is the full, commented, and runnable Python code for the Snakes and Ladders game. This script combines all the logic shown above into a single file.</p>
+                <div class="code-block">
+                    <button class="copy-button" onclick="copyCode()">Copy</button>
+                    <pre><code class="language-python">import random
+
+"""
+A simple command-line implementation of the classic Snakes and Ladders game.
+Approach:
+---------
+- The game uses a dictionary to represent snakes and ladders, mapping start positions to end positions.
+- The player's position is updated based on dice rolls (randomly generated between 1 and 6).
+- If the player lands on a snake or ladder, their position is adjusted accordingly.
+- If the player overshoots position 100, they "bounce back" by the excess amount.
+- The game loop continues until the player reaches exactly position 100.
+- User interaction is handled via input prompts and print statements.
+Functions:
+----------
+- roll_dice(): Simulates rolling a six-sided dice.
+- move_player(position, roll): Moves the player, checks for snakes/ladders, and handles overshooting.
+- play_game(): Main game loop, manages user interaction and win condition.
+Note:
+-----
+This implementation focuses on clarity and simplicity, using basic Python data structures and control flow.
+"""
+
+# Board setup: key is start, value is end (snakes/ladders)
+snakes = {16: 6, 47: 26, 49: 11, 56: 53, 62: 19, 64: 60, 87: 24, 93: 73, 95: 75, 98: 78}
+ladders = {1: 38, 4: 14, 9: 31, 21: 42, 28: 84, 36: 44, 51: 67, 71: 91, 80: 100}
+
+def roll_dice():
+    return random.randint(1, 6)
+
+def move_player(position, roll):
+    position += roll
+    if position > 100:
+        position = 100 - (position - 100) # bounce back if overshoot
+    if position in snakes:
+        print(f"Oops! Bitten by a snake at {position}. Go down to {snakes[position]}.")
+        position = snakes[position]
+    elif position in ladders:
+        print(f"Yay! Climbed a ladder at {position}. Go up to {ladders[position]}.")
+        position = ladders[position]
+    return position
+
+def play_game():
+    player_pos = 0
+    while player_pos < 100:
+        input("Press Enter to roll the dice...")
+        roll = roll_dice()
+        print(f"You rolled a {roll}.")
+        player_pos = move_player(player_pos, roll)
+        print(f"Your position: {player_pos}\n")
+        if player_pos == 100:
+            print("Congratulations! You won the game!")
+
+if __name__ == "__main__":
+    play_game()
+</code></pre>
+                </div>
+            </div>
+        </main>
+
+        <footer class="text-center text-white mt-12">
+            <p>This infographic demonstrates how fundamental programming concepts can bring a classic game to life.</p>
+        </footer>
+
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+    <script>
+        function wrapLabels(label, maxWidth) {
+            const words = label.split(' ');
+            let lines = [];
+            let currentLine = '';
+            for (const word of words) {
+                const testLine = currentLine + (currentLine === '' ? '' : ' ') + word;
+                if (testLine.length > maxWidth) {
+                    lines.push(currentLine);
+                    currentLine = word;
+                } else {
+                    currentLine = testLine;
+                }
+            }
+            lines.push(currentLine);
+            return lines;
+        }
+
+        const tooltipTitleCallback = (tooltipItems) => {
+            const item = tooltipItems[0];
+            let label = item.chart.data.labels[item.dataIndex];
+            if (Array.isArray(label)) {
+                return label.join(' ');
+            } else {
+                return label;
+            }
+        };
+
+        const boardEventsCtx = document.getElementById('boardEventsChart').getContext('2d');
+        new Chart(boardEventsCtx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Snakes', 'Ladders'],
+                datasets: [{
+                    label: 'Count',
+                    data: [10, 9],
+                    backgroundColor: [
+                        '#FF6B6B',
+                        '#06D6A0'
+                    ],
+                    borderColor: [
+                        '#FFFFFF',
+                        '#FFFFFF'
+                    ],
+                    borderWidth: 4,
+                    hoverOffset: 8
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: {
+                            font: {
+                                size: 14,
+                                weight: '600',
+                            },
+                            color: '#073B4C'
+                        }
+                    },
+                    tooltip: {
+                        callbacks: {
+                            title: tooltipTitleCallback
+                        }
+                    }
+                },
+                cutout: '60%'
+            }
+        });
+
+        function copyCode() {
+            const codeBlock = document.querySelector('.code-block code');
+            const range = document.createRange();
+            range.selectNode(codeBlock);
+            window.getSelection().removeAllRanges();
+            window.getSelection().addRange(range);
+            try {
+                document.execCommand('copy');
+                const button = document.querySelector('.copy-button');
+                button.textContent = 'Copied!';
+                setTimeout(() => {
+                    button.textContent = 'Copy';
+                }, 2000);
+            } catch (err) {
+                console.error('Failed to copy text: ', err);
+            }
+            window.getSelection().removeAllRanges();
+        }
+    </script>
+</body>
+</html>
